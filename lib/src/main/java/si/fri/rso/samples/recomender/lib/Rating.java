@@ -8,11 +8,12 @@ public class Rating {
     private Integer authorId;
     private Integer rating;
 
-    public Rating(Integer imageId, Integer authorId, Integer rating) {
+    public Rating(Integer imageId, Integer authorId,Integer rating) {
         this.imageId = imageId;
         this.authorId = authorId;
         this.rating = rating;
     }
+
 
     public Integer getAuthorId() {
         return authorId;

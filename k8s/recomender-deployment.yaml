@@ -13,7 +13,7 @@ spec:
         app: recomender
     spec:
       containers:
-        - image: baraba123/rso-recomender:1.0.0-SNAPSHOT-1.1
+        - image: baraba123/rso-recomender:1.0.0-SNAPSHOT-3.1
           name: recomender
           env:
             - name: KUMULUZEE_DISCOVERY_CLUSTER
