@@ -1,1 +1,1 @@
-# mikrostoritev-recomender
+# RSO: Recomender microservice

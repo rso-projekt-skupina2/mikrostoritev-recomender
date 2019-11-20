@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recomender-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recomender
+  template:
+    metadata:
+      labels:
+        app: recomender
+    spec:
+      containers:
+        - image: baraba123/rso-recomender:1.0.0-SNAPSHOT-1.1
+          name: recomender
+          env:
+            - name: KUMULUZEE_DISCOVERY_CLUSTER
+              value: rso
+            - name: KUMULUZEE_DISCOVERY_ETCD_HOSTS
+              value: http://etcd:2379
+            - name: KUMULUZEE_SERVER_BASEURL
+              value: http://52.188.78.101:8080
+          ports:
+            - containerPort: 8080
+              name: server
+              protocol: TCP
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: recomender
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: recomender
