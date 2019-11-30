@@ -17,15 +17,17 @@ import javax.ws.rs.core.Response;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 
+import com.kumuluz.ee.logs.cdi.Log;
+
 import si.fri.rso.samples.recomender.lib.Rating;
 import si.fri.rso.samples.recomender.services.RatingBean;
 
+@Log
 @ApplicationScoped
 @Path("/rating")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RatingResource {
-    private Logger log = Logger.getLogger(RatingResource.class.getName());
 
     @Inject
     private RatingBean ratingsBean;
@@ -34,7 +36,6 @@ public class RatingResource {
     @Counted
     public Response getRatings(@QueryParam("imageId") Integer imageId) {
         List<Rating> ratings;
-        log.info("/rating called for imageId:"+imageId);
         if (imageId != null) {
             ratings = ratingsBean.getRatingsForImage(imageId);
         } else {
@@ -45,11 +46,10 @@ public class RatingResource {
     }
 
     @GET
-    @Metered
+    @Counted
     @Path("count")
     public Response getRatingsCount(@QueryParam("imageId") Integer imageId) {
         List<Rating> ratings;
-        log.info("/rating/count called for imageId:"+imageId);
         if (imageId != null) {
             ratings = ratingsBean.getRatingsForImage(imageId);
         } else {
@@ -60,11 +60,10 @@ public class RatingResource {
     }
 
     @GET
-    @Metered
+    @Counted
     @Path("averge")
     public Response getAvergeRating(@QueryParam("imageId") Integer imageId) {
         List<Rating> ratings;
-        log.info("/rating/averge called for imageId:"+imageId);
         if (imageId != null) {
             ratings = ratingsBean.getRatingsForImage(imageId);
         } else {
