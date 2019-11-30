@@ -14,6 +14,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+
 import si.fri.rso.samples.recomender.lib.Rating;
 import si.fri.rso.samples.recomender.services.RatingBean;
 
@@ -28,6 +31,7 @@ public class RatingResource {
     private RatingBean ratingsBean;
 
     @GET
+    @Counted
     public Response getRatings(@QueryParam("imageId") Integer imageId) {
         List<Rating> ratings;
         log.info("/rating called for imageId:"+imageId);
@@ -41,6 +45,7 @@ public class RatingResource {
     }
 
     @GET
+    @Metered
     @Path("count")
     public Response getRatingsCount(@QueryParam("imageId") Integer imageId) {
         List<Rating> ratings;
@@ -55,6 +60,7 @@ public class RatingResource {
     }
 
     @GET
+    @Metered
     @Path("averge")
     public Response getAvergeRating(@QueryParam("imageId") Integer imageId) {
         List<Rating> ratings;
